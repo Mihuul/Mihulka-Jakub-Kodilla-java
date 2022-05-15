@@ -4,6 +4,7 @@ public class PaintingTask implements Task{
     private final String taskName;
     private final String color;
     private final String whatToPaint;
+    private boolean isExecuted;
 
     public PaintingTask(String taskName, String color, String whatToPaint) {
         this.taskName = taskName;
@@ -13,7 +14,12 @@ public class PaintingTask implements Task{
 
     @Override
     public String executeTask() {
-        return "Painting: " + whatToPaint + ", using only " + color + " color";
+        if (!isExecuted) {
+            isExecuted = true;
+            return "Painting: " + whatToPaint + ", using only " + color + " color";
+        } else {
+         return "Task has been finished";
+        }
     }
 
     @Override
@@ -23,6 +29,10 @@ public class PaintingTask implements Task{
 
     @Override
     public Boolean isTaskExecuted() {
-        return !color.startsWith("P") && !color.startsWith("B") && !color.startsWith("R");
+        if (color.startsWith("P") || color.startsWith("B") || color.startsWith("R")) {
+            return isExecuted = false;
+        } else {
+            return isExecuted = true;
+        }
     }
 }
